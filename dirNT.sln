@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31313.79
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NTDir", "NTDir\NTDir.vcxproj", "{2D657F71-88EF-49BA-8900-CD3EE8EE8FA7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dirNT", "dirNT\dirNT.vcxproj", "{2D657F71-88EF-49BA-8900-CD3EE8EE8FA7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test", "Test\Test.vcxproj", "{8AEB0183-0324-4A3B-B505-AA9B1BB8CFEF}"
 EndProject
