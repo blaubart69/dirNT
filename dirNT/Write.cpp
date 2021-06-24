@@ -25,14 +25,14 @@ namespace bee
 		else
 		{
 			const size_t reserved_capacity = str.length() * 4;
-			_codepageConvertBuffer.reserve(reserved_capacity);
+			_array.reserve(reserved_capacity);
 
 			if (int multiBytesWritten; (multiBytesWritten = WideCharToMultiByte(
 				GetConsoleOutputCP()
 				, 0									// dwFlags [in]
 				, str.data()						// lpWideCharStr [in]
 				, (int)str.length()					// cchWideChar [in]
-				, _codepageConvertBuffer.data()		// lpMultiByteStr [out, optional]
+				, _array.data()		// lpMultiByteStr [out, optional]
 				, reserved_capacity					// cbMultiByte [in]
 				, NULL								// lpDefaultChar[in, optional]
 				, NULL								// lpUsedDefaultChar[out, optional]
@@ -42,7 +42,7 @@ namespace bee
 			}
 			else if (DWORD written; !WriteFile(
 				_fp
-				, _codepageConvertBuffer.data()
+				, _array.data()
 				, multiBytesWritten
 				, &written
 				, NULL))

@@ -9,7 +9,7 @@ namespace bee
 	class Writer
 	{
 	private:
-		vector<char> _codepageConvertBuffer;
+		vector<char> _array;
 		const HANDLE _fp;
 
 		static Writer* _out;
