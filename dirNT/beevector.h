@@ -22,7 +22,7 @@ namespace bee
 		vector& push_back(const T& _Val) 
 		{
 			ensureCapacity(_len + 1);
-			_codepageConvertBuffer[_len] = _Val;
+			_array[_len] = _Val;
 			_len += 1;
 			return *this;
 		}
@@ -30,7 +30,7 @@ namespace bee
 		{
 			ensureCapacity(this->size() + len);
 			
-			RtlMoveMemory(&_codepageConvertBuffer[_len], ptr, len * sizeof(T));
+			RtlMoveMemory(&_array[_len], ptr, len * sizeof(T));
 			_len += len;
 
 			return *this;
@@ -58,7 +58,7 @@ namespace bee
 			if (newSize > _len)
 			{
 				ensureCapacity(newSize);
-				RtlFillMemory(&_codepageConvertBuffer[_len],  sizeof(T) * (newSize - _len), 0);
+				RtlFillMemory(&_array[_len],  sizeof(T) * (newSize - _len), 0);
 			}
 
 			_len = newSize;
@@ -69,26 +69,26 @@ namespace bee
 		}
 		T* data() const
 		{
-			return _codepageConvertBuffer;
+			return _array;
 		}
 		T& operator[](size_t idx) const
 		{
-			return _codepageConvertBuffer[idx];
+			return _array[idx];
 		}
 		~vector()
 		{
-			if (_codepageConvertBuffer != nullptr)
+			if (_array != nullptr)
 			{
-				HeapFree(GetProcessHeap(), 0, _codepageConvertBuffer);
+				HeapFree(GetProcessHeap(), 0, _array);
 			}
 		}
 		vector() 
-			: _codepageConvertBuffer(nullptr), _len(0), _capacity(0) 
+			: _array(nullptr), _len(0), _capacity(0) 
 		{
 		}
 		vector(const size_t capacity) 
 		{
-			_codepageConvertBuffer = nullptr;
+			_array = nullptr;
 			_capacity = 0;
 			_len = 0;
 			ensureCapacity(capacity);
@@ -96,7 +96,7 @@ namespace bee
 
 	protected:
 
-		T*     _codepageConvertBuffer;
+		T*     _array;
 		size_t _capacity;
 		size_t _len;
 
@@ -112,16 +112,16 @@ namespace bee
 			{
 				const size_t newCapacity = align_to_64(wantCapacity);
 
-				if (_codepageConvertBuffer == __nullptr) 
+				if (_array == __nullptr) 
 				{ 
-					_codepageConvertBuffer = (T*)HeapAlloc  (GetProcessHeap(), 0,       sizeof(T) * newCapacity); 
+					_array = (T*)HeapAlloc  (GetProcessHeap(), 0,       sizeof(T) * newCapacity); 
 				}
 				else				   
 				{ 
-					_codepageConvertBuffer = (T*)HeapReAlloc(GetProcessHeap(), 0, _codepageConvertBuffer, sizeof(T) * newCapacity); 
+					_array = (T*)HeapReAlloc(GetProcessHeap(), 0, _array, sizeof(T) * newCapacity); 
 				}
 
-				if (_codepageConvertBuffer == nullptr)
+				if (_array == nullptr)
 				{
 					ExitProcess(ERROR_NOT_ENOUGH_MEMORY);
 				}
