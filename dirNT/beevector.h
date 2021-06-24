@@ -15,7 +15,7 @@ extern "C"
 
 namespace bee
 {
-	template< typename T, typename = typename std::enable_if<std::is_trivially_copyable<T>::value>::type >
+	template<typename T>
 	class vector
 	{
 	public:
@@ -58,7 +58,12 @@ namespace bee
 			if (newSize > _len)
 			{
 				ensureCapacity(newSize);
-				RtlFillMemory(&_array[_len],  sizeof(T) * (newSize - _len), 0);
+
+				for (size_t i = _len; i < newSize; ++i)
+				{
+					T* newObj = &(_array[i]);
+					new(newObj) T;
+				}
 			}
 
 			_len = newSize;
