@@ -48,8 +48,12 @@ namespace TestVec
 			bee::vector<DWORD> v;
 			Assert::IsTrue(0 == v.size());
 
-			DWORD values[2] = { 0xFF, 0xEE };
-			v.append(values, 2);
+			//DWORD values[2] = { 0xFF, 0xEE };
+			//v.append(values, 2);
+			bee::vector<DWORD> v2;
+			v2.push_back(0xff);
+			v2.push_back(0xee);
+			v.append(v2);
 
 			Assert::IsTrue(2 == v.size());
 			Assert::IsTrue(0xFF == v[0]);
@@ -60,14 +64,22 @@ namespace TestVec
 			bee::vector<DWORD> v;
 			Assert::IsTrue(0 == v.size());
 
-			DWORD v1[2] = { 0xFF, 0xEE };
-			v.append(v1, 2);
+			//DWORD v1[2] = { 0xFF, 0xEE };
+			//v.append(v1, 2);
+			bee::vector<DWORD> v2;
+			v2.push_back(0xff)
+			  .push_back(0xee);
+			v.append(v2);
+
 			Assert::IsTrue(2 == v.size());
 			Assert::IsTrue(0xFF == v[0]);
 			Assert::IsTrue(0xEE == v[1]);
 
-			DWORD v2[2] = { 0xDD, 0xCC };
-			v.append(v2, 2);
+			v2.clear();
+			v2.push_back(0xdd)
+			  .push_back(0xcc);
+			v.append(v2);
+
 			Assert::IsTrue(4 == v.size());
 			Assert::IsTrue(0xDD == v[2]);
 			Assert::IsTrue(0xCC == v[3]);

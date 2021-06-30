@@ -26,34 +26,31 @@ namespace bee
 			_len += 1;
 			return *this;
 		}
-		vector& append(const T* ptr, const size_t len)
-		{
-			ensureCapacity(this->size() + len);
-			
-			RtlMoveMemory(&_array[_len], ptr, len * sizeof(T));
-			_len += len;
-
-			return *this;
-		}
 		vector& append(const vector& vec)
 		{
-			return append(vec.data(), vec.size());
+			for (int i = 0; i < vec.size(); ++i)
+			{
+				this->push_back(vec[i]);
+			}
+			return *this;
 		}
-		void assign(const T* other, const size_t len)
+		vector& assign(const vector& other)
 		{
 			resize(0);
-			ensureCapacity(len);
-			append(other, len);
+			ensureCapacity(other.size());
+			append(other);
+			return *this;
 		}
-		void assign(const vector& other)
+		vector& clear()
 		{
-			assign(other.data(), other.size());
+			resize(0);
+			return *this;
 		}
 		size_t size() const
 		{
 			return _len;
 		}
-		void resize(size_t newSize)
+		vector& resize(size_t newSize)
 		{
 			if (newSize > _len)
 			{
@@ -67,10 +64,12 @@ namespace bee
 			}
 
 			_len = newSize;
+			return *this;
 		}
-		void reserve(size_t newCapacity)
+		vector& reserve(size_t newCapacity)
 		{
 			ensureCapacity(newCapacity);
+			return *this;
 		}
 		T* data() const
 		{
@@ -82,6 +81,12 @@ namespace bee
 		}
 		~vector()
 		{
+			for (size_t i = 0; i < _len; ++i)
+			{
+				T* obj = (T*)_array[i];
+				obj->~T();
+			}
+
 			if (_array != nullptr)
 			{
 				HeapFree(GetProcessHeap(), 0, _array);
