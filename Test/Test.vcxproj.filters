@@ -29,5 +29,8 @@
     <ClCompile Include="TestVec.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestVec_ctor_dtor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

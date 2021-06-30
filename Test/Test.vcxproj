@@ -179,6 +179,7 @@
     </ClCompile>
     <ClCompile Include="TestBeeWString.cpp" />
     <ClCompile Include="TestVec.cpp" />
+    <ClCompile Include="TestVec_ctor_dtor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\dirNT\dirNT.vcxproj">

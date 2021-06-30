@@ -3,7 +3,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace TestVec
+namespace TestBee
 {
 	TEST_CLASS(TestBeeWString)
 	{

@@ -2,7 +2,9 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+
 #include <type_traits>
+#include <new>
 
 extern "C"
 {
@@ -22,7 +24,8 @@ namespace bee
 		vector& push_back(const T& _Val) 
 		{
 			ensureCapacity(_len + 1);
-			_array[_len] = _Val;
+			T* newObj = &(_array[_len]);
+			new(newObj) T(_Val);
 			_len += 1;
 			return *this;
 		}
@@ -50,7 +53,7 @@ namespace bee
 		{
 			return _len;
 		}
-		vector& resize(size_t newSize)
+		vector& resize(const size_t newSize)
 		{
 			if (newSize > _len)
 			{
@@ -60,6 +63,15 @@ namespace bee
 				{
 					T* newObj = &(_array[i]);
 					new(newObj) T;
+				}
+			}
+			else if (newSize < _len)
+			{
+				size_t objsToDelete = _len - newSize;
+				for (size_t idx = _len - 1; objsToDelete > 0 ; --idx, --objsToDelete)
+				{
+					T* obj = (T*)&(_array[idx]);
+					obj->~T();
 				}
 			}
 
@@ -81,11 +93,7 @@ namespace bee
 		}
 		~vector()
 		{
-			for (size_t i = 0; i < _len; ++i)
-			{
-				T* obj = (T*)_array[i];
-				obj->~T();
-			}
+			resize(0);
 
 			if (_array != nullptr)
 			{
