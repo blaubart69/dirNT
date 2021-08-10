@@ -23,7 +23,6 @@ DWORD GetFullName(LPCWSTR filename, bee::wstring* fullname)
 	return rc;
 }
 
-
 int beeMain(int argc, WCHAR* argv[])
 {
 	DWORD rc = 0;

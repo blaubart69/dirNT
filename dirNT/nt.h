@@ -7,8 +7,6 @@ namespace nt
 {
     #include <winternl.h>
 
-
-
     extern "C"
     {
         //typedef _Return_type_success_(return >= 0) LONG NTSTATUS;

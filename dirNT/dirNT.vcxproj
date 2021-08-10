@@ -179,7 +179,6 @@
     <ClInclude Include="beeLib.h" />
     <ClInclude Include="beevector.h" />
     <ClInclude Include="beewstring.h" />
-    <ClInclude Include="bee_basic_string.h" />
     <ClInclude Include="LastError.h" />
     <ClInclude Include="nt.h" />
     <ClInclude Include="NtEnum.h" />

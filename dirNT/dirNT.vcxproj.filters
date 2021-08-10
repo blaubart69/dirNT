@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="bee_basic_string.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="beeLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>

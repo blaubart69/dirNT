@@ -3,17 +3,8 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
-#include <type_traits>
+//#include <type_traits>
 #include <new>
-
-extern "C"
-{
-#undef RtlMoveMemory
-	__declspec(dllimport) void __stdcall RtlMoveMemory(void* dst, const void* src, size_t len);
-
-#undef RtlFillMemory
-	__declspec(dllimport) void __stdcall RtlFillMemory(void* Destination, size_t Length, int Fill);
-}
 
 namespace bee
 {
@@ -29,19 +20,29 @@ namespace bee
 			_len += 1;
 			return *this;
 		}
-		vector& append(const vector& vec)
+		vector& append(const T* vec, const size_t len)
 		{
-			for (int i = 0; i < vec.size(); ++i)
+			for (int i = 0; i < len; ++i)
 			{
 				this->push_back(vec[i]);
 			}
 			return *this;
 		}
-		vector& assign(const vector& other)
+		vector& append(const vector& vec)
+		{
+			append(vec.data(), vec.size());
+			return *this;
+		}
+		vector& assign(const T* other, const size_t len)
 		{
 			resize(0);
-			ensureCapacity(other.size());
-			append(other);
+			ensureCapacity(len);
+			append(other, len);
+			return *this;
+		}
+		vector& assign(const vector& other)
+		{
+			assign(other.data(), other.size());
 			return *this;
 		}
 		vector& clear()
@@ -112,12 +113,6 @@ namespace bee
 			ensureCapacity(capacity);
 		}
 
-	protected:
-
-		T*     _array;
-		size_t _capacity;
-		size_t _len;
-
 		size_t align_to_64(size_t length)
 		{
 			const size_t c = 64 - 1;
@@ -147,5 +142,12 @@ namespace bee
 				_capacity = newCapacity;
 			}
 		}
+
+	private:
+
+		T* _array;
+		size_t _capacity;
+		size_t _len;
+
 	};
 }

@@ -1,23 +1,72 @@
 #pragma once
 
-#include "bee_basic_string.h"
 #include "nt.h"
+#include "beeVector.h"
 
 namespace bee
 {
-	class wstring : public basic_string<WCHAR>
+	class wstring
 	{
+	private:
+		vector<wchar_t> _vec;
+
 	public:
-		wstring() : basic_string() {}
-		wstring(LPCWSTR str) : basic_string()
+		wstring() {}
+		wstring(const wchar_t* str)
 		{
-			this->appendW(str);
+			appendW(str);
+
+		}
+		wchar_t* c_str()
+		{
+			// El Dörty
+			_vec.ensureCapacity(_vec.size() + 1);
+			_vec[_vec.size()] = L'\0';
+			return _vec.data();
+		}
+		wchar_t* data() const
+		{
+			return _vec.data();
+		}
+		wstring& resize(const size_t newLen)
+		{
+			_vec.resize(newLen);
+			return *this;
+		}
+		size_t length() const
+		{
+			return _vec.size();
+		}
+		wstring& push_back(const wchar_t c)
+		{
+			_vec.push_back(c);
+			return *this;
+		}
+		wstring& assign(const wstring& str)
+		{
+			_vec.assign(str._vec);
+			return *this;
+		}
+		wstring& assign(const wchar_t* str, const size_t len)
+		{
+			_vec.assign(str, len);
+			return *this;
+		}
+		wstring& append(const wstring& str)
+		{
+			_vec.append(str._vec);
+			return *this;
+		}
+		wstring& append(const wchar_t* str, const size_t len)
+		{
+			_vec.append(str, len);
+			return *this;
 		}
 		wstring& appendW(const wchar_t* str)
 		{
 			for (int i = 0; str[i] != L'\0'; ++i)
 			{
-				this->push_back(str[i]);
+				_vec.push_back(str[i]);
 			}
 			return *this;
 		}
@@ -25,23 +74,23 @@ namespace bee
 		{
 			for (int i = 0; str[i] != '\0'; ++i)
 			{
-				WCHAR c = str[i];
-				this->push_back(c);
+				wchar_t c = str[i];
+				_vec.push_back(c);
 			}
 			return *this;
 		}
 		wstring& append_ull(ULONGLONG val) {
 
-			reserve(length() + 32);
+			_vec.reserve(_vec.size() + 32);
 
 			nt::UNICODE_STRING ucs;
 			ucs.Length			= 0;
 			ucs.MaximumLength	= 32;
-			ucs.Buffer			= data() + length();
+			ucs.Buffer			= _vec.data() + _vec.size();
 
 			nt::NTSTATUS status = nt::RtlInt64ToUnicodeString(val, 10, &ucs);
 
-			this->_len += ucs.Length / sizeof(WCHAR);
+			_vec.resize(_vec.size() + (ucs.Length / sizeof(WCHAR)));
 
 			return *this;
 		}
@@ -49,14 +98,25 @@ namespace bee
 
 			if (val < 0)
 			{
-				this->push_back(L'-');
+				_vec.push_back(L'-');
 				val = -val;
 			}
 
 			return append_ull((ULONGLONG)val);
 		}
+		WCHAR& operator[](size_t idx) const
+		{
+			return _vec[idx];
+		}
+		bool ends_with(const wchar_t c) const
+		{
+			if (length() == 0)
+			{
+				return false;
+			}
 
-	private:
+			return _vec[ length() -1 ] == c;
+		}
 
 	};
 }
