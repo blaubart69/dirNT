@@ -3,13 +3,38 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
+//
+// Generic test for success on any status value (non-negative numbers
+// indicate success).
+//
+
+#ifndef NT_SUCCESS
+#define NT_SUCCESS(Status) (((nt::NTSTATUS)(Status)) >= 0)
+#endif
+
 namespace nt
 {
     #include <winternl.h>
 
+
+
     extern "C"
     {
         //typedef _Return_type_success_(return >= 0) LONG NTSTATUS;
+
+        int swprintf_s(
+            wchar_t* buffer,
+            size_t sizeOfBuffer,
+            const wchar_t* format,
+            ...
+        );
+
+        int vswprintf_s(
+            wchar_t* buffer,
+            size_t numberOfElements,
+            const wchar_t* format,
+            va_list argptr
+        );
 
         NTSYSAPI
             NTSTATUS
@@ -19,6 +44,14 @@ namespace nt
                 _In_opt_ ULONG Base,
                 _Inout_ PUNICODE_STRING String
             );
+
+        NTSYSAPI NTSTATUS RtlUnicodeStringToInteger(
+            PCUNICODE_STRING String,
+            ULONG            Base,
+            PULONG           Value
+        );
+
+        
 
 #undef RtlMoveMemory
         __declspec(dllimport) void __stdcall RtlMoveMemory(void* dst, const void* src, size_t len);

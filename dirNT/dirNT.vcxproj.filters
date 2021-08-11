@@ -51,4 +51,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ntdll_custom.def">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="make_ntdll_custom_lib.cmd" />
+  </ItemGroup>
 </Project>

@@ -190,6 +190,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Write.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="make_ntdll_custom_lib.cmd" />
+    <None Include="ntdll_custom.def" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

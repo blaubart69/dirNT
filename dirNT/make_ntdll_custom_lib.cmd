@@ -1,0 +1,1 @@
+lib /def:ntdll_custom.def /out:.\ntdll_custom.lib /machine:X64

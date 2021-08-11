@@ -52,6 +52,15 @@ namespace bee
 			_vec.assign(str, len);
 			return *this;
 		}
+		wstring& assign(const size_t count, const wchar_t c)
+		{
+			_vec.resize(0);
+			for (int i = 0; i < count; ++i)
+			{
+				_vec.push_back(c);
+			}
+			return *this;
+		}
 		wstring& append(const wstring& str)
 		{
 			_vec.append(str._vec);
@@ -117,6 +126,32 @@ namespace bee
 
 			return _vec[ length() -1 ] == c;
 		}
+		wstring& sprintf(const wchar_t* format, ...)
+		{
+			va_list args;
+			va_start(args, format);
 
+			if (_vec.size() == 0)
+			{
+				_vec.resize(32);
+			}
+
+			for (;;)
+			{
+				int charsWritten = nt::vswprintf_s(_vec.data(), _vec.size(), format, args);
+				if (charsWritten == -1)
+				{
+					_vec.resize(_vec.size() * 4);
+				}
+				else
+				{
+					_vec.resize(charsWritten);
+					break;
+				}
+			}
+			va_end(args);
+
+			return *this;
+		}
 	};
 }

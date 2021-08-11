@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
+#include "../dirNT/beewstring.h"
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace TestBee
@@ -46,6 +48,12 @@ namespace TestBee
 			s.append_ull(17);
 			Assert::IsTrue(s.length() == 2);
 			Assert::AreEqual(L"17", s.c_str());
+		}
+		TEST_METHOD(sprintf)
+		{
+			bee::wstring s;
+			s.sprintf(L"%s", L"bumsti");
+			Assert::AreEqual(L"bumsti", s.c_str());
 		}
 	};
 }

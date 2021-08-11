@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 
+#include "../dirNT/beeVector.h"
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace TestBee

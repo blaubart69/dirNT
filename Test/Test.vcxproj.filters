@@ -32,5 +32,8 @@
     <ClCompile Include="TestVec_ctor_dtor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Test_NT_printf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
