@@ -71,8 +71,7 @@ namespace bee
 				size_t objsToDelete = _len - newSize;
 				for (size_t idx = _len - 1; objsToDelete > 0 ; --idx, --objsToDelete)
 				{
-					T* obj = (T*)&(_array[idx]);
-					obj->~T();
+					((T*)&(_array[idx]))->~T();
 				}
 			}
 
@@ -125,7 +124,7 @@ namespace bee
 			{
 				const size_t newCapacity = align_to_64(wantCapacity);
 
-				if (_array == __nullptr) 
+				if (_array == nullptr) 
 				{ 
 					_array = (T*)HeapAlloc  (GetProcessHeap(), 0,       sizeof(T) * newCapacity); 
 				}
