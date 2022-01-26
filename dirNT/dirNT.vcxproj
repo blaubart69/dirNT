@@ -116,6 +116,7 @@
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <Optimization>MinSpace</Optimization>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -162,6 +163,7 @@
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <Optimization>MinSpace</Optimization>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

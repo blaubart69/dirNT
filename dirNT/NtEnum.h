@@ -125,18 +125,18 @@ DWORD NtEnum<C>::Run(bee::wstring& dir)
 
 nt::NTSTATUS openSubDir(PHANDLE hSubDir, HANDLE hParentDir, PWSTR filename, ULONG cbFilenameLen)
 {
-	nt::UNICODE_STRING uStrFilename;
-	uStrFilename.Buffer = filename;
-	uStrFilename.Length = (USHORT)cbFilenameLen;
-	uStrFilename.MaximumLength = (USHORT)cbFilenameLen;
+	nt::UNICODE_STRING		uStrFilename;
+	uStrFilename.Buffer				= filename;
+	uStrFilename.Length				= (USHORT)cbFilenameLen;
+	uStrFilename.MaximumLength		= (USHORT)cbFilenameLen;
 
-	nt::OBJECT_ATTRIBUTES oAttr;
-	oAttr.Length = sizeof(nt::OBJECT_ATTRIBUTES);
-	oAttr.RootDirectory = hParentDir;
-	oAttr.Attributes = 0;
-	oAttr.ObjectName = &uStrFilename;
-	oAttr.SecurityDescriptor = NULL;
-	oAttr.SecurityQualityOfService = NULL;
+	nt::OBJECT_ATTRIBUTES	oAttr;
+	oAttr.Length					= sizeof(nt::OBJECT_ATTRIBUTES);
+	oAttr.RootDirectory				= hParentDir;
+	oAttr.Attributes				= 0;
+	oAttr.ObjectName				= &uStrFilename;
+	oAttr.SecurityDescriptor		= NULL;
+	oAttr.SecurityQualityOfService	= NULL;
 
 	nt::IO_STATUS_BLOCK io_status_block;
 
