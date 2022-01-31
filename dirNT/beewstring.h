@@ -144,5 +144,37 @@ namespace bee
 
 			return *this;
 		}
+		wstring& appendf(const wchar_t* format, ...)
+		{
+			va_list args;
+			va_start(args, format);
+
+			const size_t oldSize = _vec.size();
+			if (_vec.size() == 0)
+			{
+				_vec.resize(32);
+			}
+			else
+			{
+				_vec.resize(oldSize + 64);
+			}
+
+			for (;;)
+			{
+				int charsWritten = nt::vswprintf_s(_vec.data() + oldSize, _vec.size() - oldSize, format, args);
+				if (charsWritten == -1)
+				{
+					_vec.resize( _vec.size() * 2);
+				}
+				else
+				{
+					_vec.resize( oldSize + charsWritten);
+					break;
+				}
+			}
+			va_end(args);
+
+			return *this;
+		}
 	};
 }
