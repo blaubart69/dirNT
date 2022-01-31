@@ -9,7 +9,7 @@ namespace bee
 		buf.appendW(L"E ");
 		buf.append_ll(_rc);
 		buf.push_back(L'\t'); buf.appendA(_func);
-		buf.push_back(L'\t'); buf.append(_param);
+		buf.push_back(L'\t'); buf.append(*_param);
 		buf.push_back('\n');
 
 		LastError err;

@@ -8,13 +8,24 @@ namespace bee
 	{
 	private:
 
-		DWORD   _rc = 0;
-		LPCSTR  _func = nullptr;
-		wstring _param;
+		LPCSTR   _func;
+		wstring* _param;
+		DWORD    _rc;
 
 	public:
 
-		LastError() : _rc(0), _func(nullptr) {}
+		LastError() : 
+			  _rc(0)
+			, _func(nullptr) 
+			, _param(nullptr)
+		{}
+		~LastError()
+		{
+			if (_param != nullptr)
+			{
+				delete _param;
+			}
+		}
 		LastError(LPCSTR errFunc)
 		{
 			this->set(errFunc);
@@ -37,7 +48,11 @@ namespace bee
 		LastError* set(LPCSTR errFunc, const bee::wstring& funcParam)
 		{
 			this->set(errFunc);
-			this->_param.assign(funcParam);
+			if (_param == nullptr)
+			{
+				_param = new wstring;
+			}
+			_param->assign(funcParam);
 			return this;
 		}
 

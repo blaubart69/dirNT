@@ -23,11 +23,11 @@ namespace TestNT
 			int charsWritten = nt::swprintf_s(buf, sizeof(buf) / sizeof(WCHAR), L"%p", 0xAffE);
 			Assert::AreEqual(L"000000000000AFFE", buf);
 		}
-		TEST_METHOD(swprintf_error)
+		TEST_METHOD(swprintf_buffer_too_small)
 		{
 			WCHAR buf[8];
 			int charsWritten = nt::swprintf_s(buf, sizeof(buf) / sizeof(WCHAR), L"%d hallo", 1724);
-			Assert::AreEqual(L"000000000000AFFE", buf);
+			Assert::AreEqual(-1, charsWritten);
 		}
 	};
 }

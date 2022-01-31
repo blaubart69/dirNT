@@ -52,15 +52,6 @@ namespace bee
 			_vec.assign(str, len);
 			return *this;
 		}
-		wstring& assign(const size_t count, const wchar_t c)
-		{
-			_vec.resize(0);
-			for (int i = 0; i < count; ++i)
-			{
-				_vec.push_back(c);
-			}
-			return *this;
-		}
 		wstring& append(const wstring& str)
 		{
 			_vec.append(str._vec);
